@@ -5,7 +5,7 @@ class based_number(object):
     self._int_value = int(based_number.to_decimal(numberAsString, baseAsInt))
   def to_decimal(num,base):
     return int(num,base)
-
+#test
 
 
 if __name__ == "__main__":
