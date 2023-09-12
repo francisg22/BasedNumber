@@ -12,8 +12,7 @@ class based_number(object):
    #STRINGS HAVE TO BE THE SAME LENGTH (AS OF RN)
    #MAKE A FUNCTION TO ADD SOME ZEROS TO THE FRONT OF THE SMALLER STRING
     num.normalize(self)
-    print(self.numberAsString)
-    print(num.numberAsString)
+    
     if(num._int_value > self._int_value):
       return "no"
     rv = ''
@@ -22,8 +21,7 @@ class based_number(object):
     i = len(s)-1
     # carry = [0] * (i + 1)
     while i >= 0:
-      print(str(i) + " loop " + " a = " +s[i])
-      print(str(i) + " loop " + " b = " +s2[i])
+      
       a = int(s[i]) - int(s2[i])
       if(a == 1):
         rv = '1' + rv
@@ -54,9 +52,9 @@ class based_number(object):
         
       
         
-      print( str(i) + " loop " + rv)  
+      
       i -= 1
-    print(rv)
+    
     
     
     return rv
@@ -102,13 +100,17 @@ class based_number(object):
 if __name__ == "__main__":
   a = based_number("10010000",2)
   b = based_number("1100",2)
-  c = based_number("1010010",2)
-  d = based_number("101010",2)
+  c = based_number("11010010",2)
+  d = based_number("1101010",2)
   print(c._int_value)
   print(d._int_value)
+  
   f = c.subtract(d)
-  # print(based_number.to_decimal(f,2))
   print('c - d=' + f)
+  f = based_number(f,2)
+  print(f.numberAsString)
+  # print(based_number.to_decimal(f,2))
+
   # b.normalize(a)
   # print(a.division(b))
   print(a._int_value)
