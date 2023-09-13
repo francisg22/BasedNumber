@@ -56,7 +56,7 @@ class based_number(object):
         else:
           rv = '1' + rv
       i -= 1
-    return rv
+    return based_number(rv,2)
     
   def __add__(self,num):
     pass
@@ -69,15 +69,34 @@ class based_number(object):
       return "Number less than 1"
     rv = "0"
     i= 1
-    remainder = based_number('0',2)
+    temp = based_number('0',2)
     
-    while(i<self.numberAsString):
-      while(remainder < num):
-        remainder = self.numberAsString[0:i]
+    while(temp < num):
+        temp = based_number(self.numberAsString[0:i],2)
         i+=1
         rv += '0'
-      temp = remainder - num
+    a = temp - num
+    bringdown = based_number(a.numberAsString,2)
+    rv += '1'
+    while(i<len(self.numberAsString)):
+       
+      while(num > bringdown):
+        rv +='0'
+        if(i+1>=len(self.numberAsString)):
+          break
+        bringdown.numberAsString += self.numberAsString[i+1] 
+        i+=1
+      
+      a = bringdown - num
+      if(a=='no'):
+        break
+      bringdown = based_number(a,2)
       rv += '1'
+      
+    remainder = bringdown
+    return [rv,remainder]
+      
+
       
     
     
@@ -131,7 +150,6 @@ if __name__ == "__main__":
   print("a = " + str(a._int_value))
   print("b = " + str(b._int_value))
   # b.normalize(a)
-  print(a[i])
-  print(a[i:i+1])
+  
   print(a.division(b))
   
