@@ -29,8 +29,7 @@ class based_number(object):
   
   def __sub__(self, num):
     num.normalize(self)
-    if(num > self):
-      return "no"
+    
     rv = ''
     s = self.numberAsString
     s2 = num.numberAsString
@@ -61,40 +60,26 @@ class based_number(object):
   def __add__(self,num):
     pass
     
-  def left_shift_and_add(self,num):
-    return based_number(self.numberAsString + num,2)
+  def left_shift(self,num):
+    return based_number(self.numberAsString + ('0' * num) ,2)
     
   def division(self,num):
-    if(self < num):
-      return "Number less than 1"
-    rv = "0"
-    i= 1
-    temp = based_number('0',2)
-    
-    while(temp < num):
-        temp = based_number(self.numberAsString[0:i],2)
-        i+=1
-        rv += '0'
-    a = temp - num
-    bringdown = based_number(a.numberAsString,2)
-    rv += '1'
-    while(i<len(self.numberAsString)):
-       
-      while(num > bringdown):
-        rv +='0'
-        if(i+1>=len(self.numberAsString)):
-          break
-        bringdown.numberAsString += self.numberAsString[i+1] 
-        i+=1
+    rv = based_number('',2)
+    current = based_number('',2)
+    dividend = self
+    divisor = num
+    for i in range(len(dividend.numberAsString)):
+      current = based_number(current.numberAsString + dividend.numberAsString[i],2) 
+      if( divisor <= current):
+        current = current - divisor
+        temp = '1'
+      else:
+        temp = '0'
+      rv = based_number(rv.numberAsString + temp,2) 
+    return [rv,current]
       
-      a = bringdown - num
-      if(a=='no'):
-        break
-      bringdown = based_number(a,2)
-      rv += '1'
+        
       
-    remainder = bringdown
-    return [rv,remainder]
       
 
       
@@ -131,10 +116,11 @@ class based_number(object):
         
 
 if __name__ == "__main__":
-  a = based_number("10010000",2)
-  b = based_number("1100",2)
-  c = based_number("10000001",2)
-  d = based_number("1111111",2)
+  a = based_number("1100",2)
+  b = based_number("101",2)
+  c = based_number("001100",2)
+  d = based_number("01100",2)
+  print((c-d).numberAsString)
   # print(c._int_value)
   # print(d._int_value)
   # print(c-d)
@@ -145,11 +131,13 @@ if __name__ == "__main__":
   # f = based_number(f,2)
   # print(f.numberAsString)
   # print(based_number.to_decimal(f,2))
-  print("a = " + a.numberAsString)
-  print("b = " +b.numberAsString)
-  print("a = " + str(a._int_value))
-  print("b = " + str(b._int_value))
-  # b.normalize(a)
+  print("a in binary = " + a.numberAsString + ' a in decimal = ' +str(a._int_value))
+  print("b in binary = " + b.numberAsString + ' b in decimal = ' +str(b._int_value))
   
-  print(a.division(b))
+
+  # b.normalize(a)
+  quotient = a.division(b)
+  print('A / B')
+  print('Quotient = ' + quotient[0].numberAsString + "     as int = " + str(quotient[0]._int_value))
+  print('remainder = ' + quotient[1].numberAsString + "    as int = " + str(quotient[1]._int_value))
   

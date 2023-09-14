@@ -1,0 +1,35 @@
+if(self < num):
+      return "Number less than 1"
+    rv = "0"
+    i= 1
+    temp = based_number('0',2)
+    #this loop goes for too long for some reason
+    while(temp < num):
+      temp = based_number(self.numberAsString[0:i],2)
+      i+=1
+      rv += '0'
+    a = temp - num
+    
+    bringdown = based_number(a.numberAsString,2)
+
+    
+    rv += '1'
+    print('rv = ' + rv)
+    while(i<len(self.numberAsString)):
+       
+      while(num > bringdown):
+        rv +='0'
+        if(i+1>=len(self.numberAsString)):
+          break
+        bringdown.numberAsString += self.numberAsString[i+1] 
+        i+=1
+      print(bringdown.numberAsString)
+      print(num.numberAsString)
+      a = (bringdown - num)
+      print(a.numberAsString)
+      
+      bringdown = a
+      rv += '1'
+      
+    remainder = bringdown
+    return [rv,remainder]
